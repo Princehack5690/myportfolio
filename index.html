@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Eteng — Cybersecurity Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #12151a;
+    --panel: #1b2027;
+    --panel-raised: #232a33;
+    --kraft: #c8a165;
+    --alert: #b23a2e;
+    --paper: #ede9df;
+    --steel: #7c8896;
+    --hairline: rgba(237,233,223,0.12);
+
+    --f-stamp: 'Courier Prime', monospace;
+    --f-body: 'IBM Plex Sans', sans-serif;
+    --f-data: 'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--f-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{background:var(--alert); color:var(--paper);}
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* -------- NAV -------- */
+  nav.tabs{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(18,21,26,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hairline);
+  }
+  nav.tabs .wrap{
+    display:flex;
+    gap:2px;
+    padding:0 28px;
+    overflow-x:auto;
+  }
+  nav.tabs a{
+    font-family:var(--f-stamp);
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--steel);
+    padding:16px 14px;
+    white-space:nowrap;
+    border-bottom:2px solid transparent;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  nav.tabs a::before{
+    content:"▸ ";
+    opacity:0;
+    transition:opacity .2s ease;
+  }
+  nav.tabs a:hover{color:var(--paper);}
+  nav.tabs a.active{color:var(--kraft); border-bottom-color:var(--kraft);}
+  nav.tabs a.active::before{opacity:1;}
+
+  /* -------- HERO -------- */
+  header.hero{
+    position:relative;
+    padding:120px 0 100px;
+    border-bottom:1px solid var(--hairline);
+    overflow:hidden;
+  }
+  header.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(237,233,223,0.025) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(237,233,223,0.025) 40px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:var(--f-data);
+    font-size:12px;
+    letter-spacing:0.15em;
+    color:var(--kraft);
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:28px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px; height:8px;
+    background:var(--alert);
+    border-radius:50%;
+    display:inline-block;
+    animation:blink 2.2s infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:.25;} }
+
+  h1.case-name{
+    font-family:var(--f-stamp);
+    font-weight:700;
+    font-size:clamp(42px, 8vw, 84px);
+    line-height:0.95;
+    margin:0 0 20px;
+    letter-spacing:-0.01em;
+    text-transform:uppercase;
+    opacity:0;
+    transform:scale(1.4);
+    animation:stamp-in .5s cubic-bezier(.2,.9,.3,1) .15s forwards;
+  }
+  @keyframes stamp-in{
+    0%{opacity:0; transform:scale(1.5) rotate(-2deg);}
+    60%{opacity:1;}
+    100%{opacity:1; transform:scale(1) rotate(0deg);}
+  }
+
+  p.role-line{
+    font-size:19px;
+    color:var(--steel);
+    max-width:480px;
+    margin:0 0 44px;
+  }
+  p.role-line strong{color:var(--paper); font-weight:600;}
+
+  .stamp-badge{
+    position:absolute;
+    right:28px;
+    bottom:56px;
+    border:2.5px solid var(--alert);
+    color:var(--alert);
+    font-family:var(--f-stamp);
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:10px 16px;
+    transform:rotate(-9deg);
+    border-radius:4px;
+    opacity:0.9;
+  }
+  @media (max-width:640px){ .stamp-badge{ position:static; margin-top:32px; display:inline-block; } }
+
+  /* -------- SECTION SHELL -------- */
+  section{
+    padding:88px 0;
+    border-bottom:1px solid var(--hairline);
+  }
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:44px;
+  }
+  .sec-tag{
+    font-family:var(--f-data);
+    font-size:12px;
+    color:var(--kraft);
+    letter-spacing:0.1em;
+    border:1px solid var(--kraft);
+    padding:3px 8px;
+    border-radius:3px;
+    white-space:nowrap;
+  }
+  h2.sec-title{
+    font-family:var(--f-stamp);
+    font-weight:700;
+    font-size:28px;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    margin:0;
+  }
+
+  /* -------- PROFILE -------- */
+  .profile-sheet{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-radius:6px;
+    padding:36px;
+  }
+  .field-row{
+    display:grid;
+    grid-template-columns:170px 1fr;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px dashed var(--hairline);
+    font-size:15px;
+  }
+  .field-row:last-child{border-bottom:none;}
+  .field-label{
+    font-family:var(--f-data);
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--steel);
+    text-transform:uppercase;
+    padding-top:2px;
+  }
+  .field-value{color:var(--paper);}
+  @media (max-width:600px){
+    .field-row{grid-template-columns:1fr; gap:4px;}
+  }
+
+  /* -------- CAPABILITIES -------- */
+  .cap-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:1px;
+    background:var(--hairline);
+    border:1px solid var(--hairline);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .cap-card{
+    background:var(--panel);
+    padding:26px 24px;
+  }
+  .cap-num{
+    font-family:var(--f-data);
+    font-size:12px;
+    color:var(--alert);
+    margin-bottom:10px;
+    display:block;
+  }
+  .cap-card h3{
+    font-family:var(--f-stamp);
+    font-size:16px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    margin:0 0 12px;
+  }
+  .cap-card ul{
+    margin:0; padding:0;
+    list-style:none;
+    font-size:14px;
+    color:var(--steel);
+  }
+  .cap-card li{
+    padding:5px 0 5px 16px;
+    position:relative;
+  }
+  .cap-card li::before{
+    content:"—";
+    position:absolute;
+    left:0;
+    color:var(--kraft);
+  }
+
+  /* -------- EXHIBITS (signature element) -------- */
+  .exhibit-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:36px 28px;
+    padding-top:8px;
+  }
+  .tag{
+    background:var(--panel-raised);
+    border:1px solid var(--hairline);
+    border-radius:2px;
+    padding:26px 20px 22px;
+    position:relative;
+    transform:rotate(var(--tilt, -1.5deg));
+    transition:transform .25s ease, box-shadow .25s ease;
+    box-shadow:0 8px 18px rgba(0,0,0,0.25);
+  }
+  .tag:hover{ transform:rotate(0deg) translateY(-4px); box-shadow:0 16px 28px rgba(0,0,0,0.35); }
+  .tag::before{
+    content:"";
+    position:absolute;
+    top:14px; left:20px;
+    width:11px; height:11px;
+    border-radius:50%;
+    background:var(--ink);
+    border:1px solid var(--hairline);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.6);
+  }
+  .tag .exhibit-id{
+    font-family:var(--f-data);
+    font-size:11px;
+    color:var(--kraft);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    display:block;
+    margin:0 0 16px 30px;
+  }
+  .tag h3{
+    font-family:var(--f-stamp);
+    font-size:16.5px;
+    margin:0 0 8px;
+    line-height:1.3;
+  }
+  .tag .issuer{
+    font-size:13px;
+    color:var(--steel);
+    margin:0 0 18px;
+  }
+  .tag .verified{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:var(--f-data);
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--alert);
+    border-top:1px dashed var(--hairline);
+    padding-top:12px;
+    width:100%;
+  }
+  .tag .verified::before{ content:"✓"; }
+
+  /* -------- TIMELINE -------- */
+  .case-log{
+    position:relative;
+    padding-left:28px;
+  }
+  .case-log::before{
+    content:"";
+    position:absolute;
+    left:4px; top:6px; bottom:6px;
+    width:1px;
+    background:repeating-linear-gradient(var(--hairline), var(--hairline) 6px, transparent 6px, transparent 12px);
+  }
+  .log-entry{
+    position:relative;
+    padding-bottom:32px;
+  }
+  .log-entry:last-child{padding-bottom:0;}
+  .log-entry::before{
+    content:"";
+    position:absolute;
+    left:-28px; top:4px;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--kraft);
+  }
+  .log-date{
+    font-family:var(--f-data);
+    font-size:12px;
+    color:var(--kraft);
+    letter-spacing:0.06em;
+    display:block;
+    margin-bottom:4px;
+  }
+  .log-entry p{margin:0; font-size:15px; color:var(--paper);}
+
+  /* -------- CONTACT -------- */
+  .intake{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-radius:6px;
+    padding:40px;
+  }
+  .intake p.lede{
+    color:var(--steel);
+    max-width:460px;
+    margin:0 0 30px;
+  }
+  .intake-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  .intake-grid .full{grid-column:1/-1;}
+  label{
+    display:block;
+    font-family:var(--f-data);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--steel);
+    margin-bottom:8px;
+  }
+  input, textarea{
+    width:100%;
+    background:var(--ink);
+    border:1px solid var(--hairline);
+    border-radius:4px;
+    color:var(--paper);
+    font-family:var(--f-body);
+    font-size:14px;
+    padding:12px 14px;
+  }
+  input:focus, textarea:focus{
+    outline:2px solid var(--kraft);
+    outline-offset:1px;
+  }
+  textarea{resize:vertical; min-height:100px;}
+  button.submit{
+    margin-top:22px;
+    font-family:var(--f-stamp);
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:var(--alert);
+    color:var(--paper);
+    border:none;
+    border-radius:4px;
+    padding:14px 26px;
+    cursor:pointer;
+    transition:filter .15s ease;
+  }
+  button.submit:hover{filter:brightness(1.12);}
+  @media (max-width:600px){ .intake-grid{grid-template-columns:1fr;} .intake{padding:26px;} }
+
+  footer{
+    padding:36px 0 60px;
+    text-align:center;
+    color:var(--steel);
+    font-family:var(--f-data);
+    font-size:12px;
+    letter-spacing:0.04em;
+  }
+</style>
+</head>
+<body>
+
+<nav class="tabs">
+  <div class="wrap">
+    <a href="#profile" class="active">Profile</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#exhibits">Exhibits</a>
+    <a href="#timeline">Case Log</a>
+    <a href="#contact">Open a Case</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Field Dossier — Vol. 01 — Status: Open</div>
+    <h1 class="case-name">John Eteng</h1>
+    <p class="role-line"><strong>Cybersecurity trainee</strong> working across ethical hacking, network defense, and digital forensics — with a criminology lens on how attackers actually think.</p>
+    <div class="stamp-badge">Active Case</div>
+  </div>
+</header>
+
+<section id="profile">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">01</span>
+      <h2 class="sec-title">Subject Profile</h2>
+    </div>
+    <div class="profile-sheet">
+      <div class="field-row">
+        <span class="field-label">Focus</span>
+        <span class="field-value">Ethical hacking, network &amp; wireless security, digital forensics</span>
+      </div>
+      <div class="field-row">
+        <span class="field-label">Grounding</span>
+        <span class="field-value">Criminology &amp; criminal psychology — studying attacker behavior, not just attack tools</span>
+      </div>
+      <div class="field-row">
+        <span class="field-label">Status</span>
+        <span class="field-value">Self-taught and actively building — 20+ completed certifications and counting</span>
+      </div>
+      <div class="field-row">
+        <span class="field-label">Summary</span>
+        <span class="field-value">Started with the fundamentals — networking, OS internals, information gathering — then moved into hands-on offensive work: wireless cracking, web exploitation, social engineering, and mobile hacking. Currently working toward red-team and investigative security roles, treating every certification as a case closed rather than a line on a résumé.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="capabilities">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">02</span>
+      <h2 class="sec-title">Capabilities</h2>
+    </div>
+    <div class="cap-grid">
+      <div class="cap-card">
+        <span class="cap-num">FILE 01</span>
+        <h3>Recon &amp; Vulnerability</h3>
+        <ul>
+          <li>OS fingerprinting</li>
+          <li>Information gathering</li>
+          <li>WordPress scanning</li>
+          <li>Vulnerability scanning &amp; reporting</li>
+        </ul>
+      </div>
+      <div class="cap-card">
+        <span class="cap-num">FILE 02</span>
+        <h3>Network &amp; Wireless</h3>
+        <ul>
+          <li>WEP / WPA-WPA2 cracking</li>
+          <li>Network spying</li>
+          <li>MAC-layer attacks</li>
+          <li>Keyboard spying</li>
+        </ul>
+      </div>
+      <div class="cap-card">
+        <span class="cap-num">FILE 03</span>
+        <h3>Application Security</h3>
+        <ul>
+          <li>Cross-site scripting</li>
+          <li>Database hacking</li>
+          <li>Denial-of-service technique</li>
+        </ul>
+      </div>
+      <div class="cap-card">
+        <span class="cap-num">FILE 04</span>
+        <h3>Social Engineering &amp; Fraud</h3>
+        <ul>
+          <li>Social media attacks</li>
+          <li>Card fraud tactics</li>
+          <li>Message concealment</li>
+        </ul>
+      </div>
+      <div class="cap-card">
+        <span class="cap-num">FILE 05</span>
+        <h3>Emerging Tools</h3>
+        <ul>
+          <li>AI-assisted hacking</li>
+          <li>Prompt-based attack methods</li>
+        </ul>
+      </div>
+      <div class="cap-card">
+        <span class="cap-num">FILE 06</span>
+        <h3>Mobile &amp; Defense</h3>
+        <ul>
+          <li>Android exploitation</li>
+          <li>Password attacks</li>
+          <li>Personal data protection</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="exhibits">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">03</span>
+      <h2 class="sec-title">Exhibits</h2>
+    </div>
+    <div class="exhibit-grid">
+      <div class="tag" style="--tilt:-2deg">
+        <span class="exhibit-id">Exhibit A</span>
+        <h3>Certified Cybersecurity Educator Professional</h3>
+        <p class="issuer">Red Team Leaders — Dec 2025</p>
+        <span class="verified">Verified</span>
+      </div>
+      <div class="tag" style="--tilt:1.5deg">
+        <span class="exhibit-id">Exhibit B</span>
+        <h3>Ethical Hacking &amp; Cybersecurity — Full Certification</h3>
+        <p class="issuer">Hacker X — 19 lessons — Aug 2025</p>
+        <span class="verified">Verified</span>
+      </div>
+      <div class="tag" style="--tilt:-1deg">
+        <span class="exhibit-id">Exhibit C</span>
+        <h3>Introduction to Cybersecurity</h3>
+        <p class="issuer">Cisco Networking Academy — Apr 2024</p>
+        <span class="verified">Verified</span>
+      </div>
+      <div class="tag" style="--tilt:2deg">
+        <span class="exhibit-id">Exhibit D</span>
+        <h3>Criminology &amp; Criminal Psychology — CSI+</h3>
+        <p class="issuer">OCSALY Academy / Udemy — Jul 2026</p>
+        <span class="verified">Verified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">04</span>
+      <h2 class="sec-title">Case Log</h2>
+    </div>
+    <div class="case-log">
+      <div class="log-entry">
+        <span class="log-date">April 2024</span>
+        <p>Completed Cisco's Introduction to Cybersecurity — the first entry in the file.</p>
+      </div>
+      <div class="log-entry">
+        <span class="log-date">August 2025</span>
+        <p>Cleared all 19 lessons of Hacker X's Ethical Hacking &amp; Cybersecurity course — recon through mobile exploitation.</p>
+      </div>
+      <div class="log-entry">
+        <span class="log-date">December 2025</span>
+        <p>Certified as a Cybersecurity Educator Professional by Red Team Leaders.</p>
+      </div>
+      <div class="log-entry">
+        <span class="log-date">July 2026</span>
+        <p>Added the investigative side — Criminology &amp; Criminal Psychology (CSI+).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">05</span>
+      <h2 class="sec-title">Open a Case</h2>
+    </div>
+    <div class="intake">
+      <p class="lede">Have a lead, a project, or a role worth discussing? File a report and it'll get read.</p>
+      <form>
+        <div class="intake-grid">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Your name">
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com">
+          </div>
+          <div class="full">
+            <label for="message">Report</label>
+            <textarea id="message" placeholder="What's the case?"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="submit">Submit Report</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Dossier compiled 2026. All credentials verifiable on request.
+</footer>
+
+<script>
+  // active tab highlight on scroll
+  const links = document.querySelectorAll('nav.tabs a');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const id = '#' + entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => s && observer.observe(s));
+
+  // form is a design mock — prevent actual submission
+  document.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = document.querySelector('button.submit');
+    const original = btn.textContent;
+    btn.textContent = 'Filed ✓';
+    setTimeout(() => btn.textContent = original, 1800);
+  });
+</script>
+
+</body>
+</html>
